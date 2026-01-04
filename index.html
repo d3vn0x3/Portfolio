@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devnoxe | Portfolio</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <meta property="og:title" content="devnoxe 👋 Frontend & Backend" />
+    <meta property="og:description" content="Construyendo interfaces limpias y arquitecturas robustas desde España 🇪🇸" />
+    <meta property="og:image" content="https://cdn.discordapp.com/avatars/1321656593795780680/6025541dc9bd75a935af84d807f92430.webp?size=256" />
+    <meta property="og:url" content="https://d3vn0x3.github.io/" />
+    <meta property="og:color" content="#008080" />
+    <meta property="og:type" content="website" />
+</head>
+<body>
+    
+    <canvas id="starsCanvas"></canvas>
+    <div class="overlay"></div> <div class="container">
+        <header class="profile-header js-scroll-hidden">
+            <div class="banner"></div>
+            <div class="header-content">
+                <div class="avatar-wrapper">
+                    <img src="https://cdn.discordapp.com/avatars/1321656593795780680/6025541dc9bd75a935af84d807f92430.webp?size=128" alt="devnoxe" class="profile-avatar">
+                    <div class="status-dot"></div>
+                </div>
+                <div class="user-info">
+                    <h1 class="glitch-text">devnoxe <span class="wave">👋</span></h1>
+                    <p class="tagline">Frontend Developer | Backend Student</p>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Spain 🇪🇸</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="card js-scroll-hidden">
+            <h2 class="section-title"><i class="fas fa-satellite"></i> 🛰️ About Me</h2>
+            <div class="about-grid">
+                <div class="about-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <p><strong>Frontend:</strong> Passionate about building clean, responsive, and aesthetic web interfaces.</p>
+                </div>
+                <div class="about-item">
+                    <i class="fas fa-cog"></i>
+                    <p><strong>Backend:</strong> Currently focusing on server-side logic and database architecture.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card js-scroll-hidden">
+            <h2 class="section-title"><i class="fas fa-tools"></i> 🛠️ My Stack</h2>
+            <div class="skills-container">
+                <img src="https://skillicons.dev/icons?i=ts,react,nextjs,tailwind,mongodb,postgres,py,vscode,git&perline=9" class="skill-icons-img" alt="My Tech Stack" />
+            </div>
+        </section>
+
+        <div class="action-area js-scroll-hidden">
+            <a href="https://github.com/d3vn0x3?tab=repositories" class="btn-github" target="_blank">
+                <i class="fab fa-github"></i> 🚀 EXPLORE MY PROJECTS
+            </a>
+        </div>
+
+        <footer class="contact-footer js-scroll-hidden">
+            <p>📫 Reach me at:</p>
+            <a href="https://discord.com/users/1321656593795780680" class="discord-badge">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
