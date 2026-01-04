@@ -1,18 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. FONDO DE PARTÍCULAS DINÁMICO ---
+    // 1. --- CONFIGURACIÓN LANYARD (DISCORD STATUS) ---
+    const DISCORD_USER_ID = '1321656593795780680';
+    const discordStatusDot = document.getElementById('discord-status');
+    const activityInfo = document.getElementById('activity-info');
+
+    async function updateDiscordStatus() {
+        try {
+            const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+            const { data } = await response.json();
+
+            if (!data) {
+                discordStatusDot.className = 'status-dot offline';
+                activityInfo.style.opacity = '0';
+                return;
+            }
+
+            discordStatusDot.className = `status-dot ${data.discord_status}`;
+
+            if (data.activities && data.activities.length > 0) {
+                const mainActivity = data.activities[0];
+                if (mainActivity.name === "Spotify") {
+                    activityInfo.innerHTML = `<i class="fab fa-spotify"></i> Listening to: ${mainActivity.details}`;
+                    activityInfo.style.opacity = '1';
+                } else {
+                    activityInfo.innerHTML = `<i class="fas fa-gamepad"></i> Playing: ${mainActivity.name}`;
+                    activityInfo.style.opacity = '1';
+                }
+            } else {
+                activityInfo.style.opacity = '0';
+            }
+        } catch (e) {
+            discordStatusDot.className = 'status-dot offline';
+        }
+    }
+
+    updateDiscordStatus();
+    setInterval(updateDiscordStatus, 10000);
+
+    // 2. --- FONDO DE ESTRELLAS ANIMADO (CANVAS) ---
     const canvas = document.getElementById('starsCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
 
-    function resize() {
+    const resize = () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    }
+    };
     window.addEventListener('resize', resize);
     resize();
 
     class Particle {
         constructor() {
+            this.init();
+        }
+        init() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 2;
@@ -22,10 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-            if (this.x > canvas.width) this.x = 0;
-            if (this.x < 0) this.x = canvas.width;
-            if (this.y > canvas.height) this.y = 0;
-            if (this.y < 0) this.y = canvas.height;
+            if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) this.init();
         }
         draw() {
             ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
@@ -37,47 +75,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 0; i < 100; i++) particles.push(new Particle());
 
-    function animateParticles() {
+    function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animateParticles);
+        requestAnimationFrame(animate);
     }
-    animateParticles();
+    animate();
 
-    // --- 2. EFECTO TILT 3D EN TARJETAS ---
-    const cards = document.querySelectorAll('.card, .profile-header');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        });
-    });
-
-    // --- 3. REVEAL ON SCROLL (Optimizado) ---
+    // 3. --- SCROLL REVEAL (AQUÍ ESTABA EL FALLO) ---
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.filter = "blur(0px)";
                 entry.target.classList.add('js-scroll-active');
             } else {
-                entry.target.style.filter = "blur(10px)";
+                // Quitamos la clase para que se oculte al subir (más abuso de JS)
                 entry.target.classList.remove('js-scroll-active');
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
     document.querySelectorAll('.js-scroll-hidden').forEach(el => observer.observe(el));
+
+    // 4. --- EFECTO TILT 3D (INTERACTIVIDAD EXTRA) ---
+    document.querySelectorAll('.card, .profile-header').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+        });
+    });
 });

@@ -3,69 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>devnoxe | Portfolio</title>
+    <title>devnoxe | Portfolio & Labs</title>
     
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <meta property="og:title" content="devnoxe 👋 Frontend & Backend" />
-    <meta property="og:description" content="Construyendo interfaces limpias y arquitecturas robustas desde España 🇪🇸" />
-    <meta property="og:image" content="https://cdn.discordapp.com/avatars/1321656593795780680/6025541dc9bd75a935af84d807f92430.webp?size=256" />
-    <meta property="og:url" content="https://d3vn0x3.github.io/" />
-    <meta property="og:color" content="#008080" />
+    <meta property="og:title" content="devnoxe 👋 Desarrollador Full Stack & Innovador" />
+    <meta property="og:description" content="Explora mis proyectos y descubre mis habilidades en Frontend, Backend y automatización desde España 🇪🇸" />
+    <meta property="og:image" content="https://cdn.discordapp.com/avatars/1321656593795780680/6025541dc9bd75a935af84d807f92430.webp?size=512" />
+    <meta property="og:url" content="https://d3vn0x3.github.io/portfolio/" />
     <meta property="og:type" content="website" />
+    <meta property="og:color" content="#008080" />
 </head>
 <body>
     
     <canvas id="starsCanvas"></canvas>
-    <div class="overlay"></div> <div class="container">
+    <div class="noise-overlay"></div> 
+
+    <div class="container">
         <header class="profile-header js-scroll-hidden">
             <div class="banner"></div>
             <div class="header-content">
                 <div class="avatar-wrapper">
                     <img src="https://cdn.discordapp.com/avatars/1321656593795780680/6025541dc9bd75a935af84d807f92430.webp?size=128" alt="devnoxe" class="profile-avatar">
-                    <div class="status-dot"></div>
+                    <div class="status-dot online" id="discord-status"></div>
                 </div>
                 <div class="user-info">
-                    <h1 class="glitch-text">devnoxe <span class="wave">👋</span></h1>
-                    <p class="tagline">Frontend Developer | Backend Student</p>
+                    <h1>devnoxe <span class="wave">👋</span></h1>
+                    <p class="tagline" id="typing-text">Frontend Developer | Backend Student</p>
                     <p class="location"><i class="fas fa-map-marker-alt"></i> Spain 🇪🇸</p>
+                    <div class="social-links-grid">
+                        <a href="https://github.com/d3vn0x3" target="_blank" class="social-badge github-badge">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://twitter.com/d3vn0x3" target="_blank" class="social-badge twitter-badge">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="https://www.linkedin.com/in/tu-perfil/" target="_blank" class="social-badge linkedin-badge">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </div>
                 </div>
             </div>
+            <div class="activity-info" id="activity-info"></div>
         </header>
 
-        <section class="card js-scroll-hidden">
+        <section class="card js-scroll-hidden glassmorphism">
             <h2 class="section-title"><i class="fas fa-satellite"></i> 🛰️ About Me</h2>
-            <div class="about-grid">
-                <div class="about-item">
-                    <i class="fas fa-laptop-code"></i>
-                    <p><strong>Frontend:</strong> Passionate about building clean, responsive, and aesthetic web interfaces.</p>
+            <p>Soy un desarrollador apasionado por la creación de soluciones robustas tanto en el frontend como en el backend. Mi enfoque se centra en la optimización de procesos y la construcción de sistemas escalables. Disfruto especialmente trabajando con Python, JavaScript y la gestión de bases de datos NoSQL.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3><span id="projects-count">0</span>+</h3>
+                    <p>Projects Completed</p>
                 </div>
-                <div class="about-item">
-                    <i class="fas fa-cog"></i>
-                    <p><strong>Backend:</strong> Currently focusing on server-side logic and database architecture.</p>
+                <div class="stat-item">
+                    <h3><span id="years-exp">0</span>+</h3>
+                    <p>Years Experience</p>
                 </div>
             </div>
         </section>
 
-        <section class="card js-scroll-hidden">
+        <section class="card js-scroll-hidden glassmorphism">
             <h2 class="section-title"><i class="fas fa-tools"></i> 🛠️ My Stack</h2>
             <div class="skills-container">
                 <img src="https://skillicons.dev/icons?i=ts,react,nextjs,tailwind,mongodb,postgres,py,vscode,git&perline=9" class="skill-icons-img" alt="My Tech Stack" />
             </div>
+            <p class="stack-description">Explorando constantemente nuevas tecnologías para construir soluciones eficientes y modernas.</p>
+        </section>
+
+        <section class="card js-scroll-hidden glassmorphism">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i> Proyectos Destacados</h2>
+            <div class="project-grid">
+                <a href="https://github.com/DevNoxe/MongoMaster" target="_blank" class="project-item glow-on-hover">
+                    <h3>MongoMaster v1.0</h3>
+                    <p class="project-desc">CLI para gestión y automatización de MongoDB Atlas, incluyendo scraping de schemas.</p>
+                    <div class="tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">CLI</span>
+                    </div>
+                </a>
+                <a href="#" target="_blank" class="project-item glow-on-hover">
+                    <h3>VEXA Orchestrator</h3>
+                    <p class="project-desc">Sistema de orquestación de tareas y virtualización para entornos distribuidos.</p>
+                    <div class="tags">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                </a>
+                <a href="#" target="_blank" class="project-item glow-on-hover">
+                    <h3>AI Chatbot UI</h3>
+                    <p class="project-desc">Interfaz de usuario conversacional con React y Next.js para modelos de IA.</p>
+                    <div class="tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">AI</span>
+                    </div>
+                </a>
+            </div>
         </section>
 
         <div class="action-area js-scroll-hidden">
-            <a href="https://github.com/d3vn0x3?tab=repositories" class="btn-github" target="_blank">
-                <i class="fab fa-github"></i> 🚀 EXPLORE MY PROJECTS
+            <a href="https://github.com/d3vn0x3?tab=repositories" class="btn-github glow-on-hover" target="_blank">
+                <i class="fab fa-github"></i> 🚀 EXPLORE TODOS MIS PROYECTOS
             </a>
         </div>
 
-        <footer class="contact-footer js-scroll-hidden">
-            <p>📫 Reach me at:</p>
-            <a href="https://discord.com/users/1321656593795780680" class="discord-badge">
-                <i class="fab fa-discord"></i> Discord
-            </a>
+        <footer class="contact-footer js-scroll-hidden glassmorphism">
+            <p>📫 ¿Interesado en colaborar? Reach me at:</p>
+            <div class="contact-methods">
+                <a href="https://discord.com/users/1321656593795780680" class="discord-badge glow-on-hover" target="_blank">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+                 <a href="mailto:tu-email@example.com" class="email-badge glow-on-hover" target="_blank">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+            </div>
+            <p class="copyright">© 2024 devnoxe. Todos los derechos reservados.</p>
         </footer>
     </div>
 
